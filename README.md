@@ -29,3 +29,28 @@ imports:
   - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Plugins.yaml" }
   - { resource: "EXT:rte_ckeditor_dl/Configuration/RTE/Plugin.yaml" }
 ```
+
+## Trouble shooting
+
+Weird `<p>` tags show up in markup like this here?
+
+```
+<dl>
+	<dt>Foo</dt>
+	<dd>
+		<p class="bodytext">Bar</p>
+	</dd>
+	<dt>Fuu</dt>
+	<dd>
+		<p class="bodytext">Bat</p>
+	</dd>
+	<p class="bodytext">&nbsp;</p>
+</dl>
+```
+
+Tweak TYPO3's pareFunc_RTE a little to get rid of that:
+
+```
+lib.parseFunc_RTE.externalBlocks.dl.callRecursive >
+lib.parseFunc_RTE.externalBlocks.dl.stdWrap.parseFunc =< lib.parseFunc
+```
