@@ -1,5 +1,5 @@
 <?php
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['rte_ckeditor_dl'] = [
 	'title' => 'CKEditor Rich Text Editor: Definition lists',
 	'description' => '',
 	'category' => 'system',
@@ -13,7 +13,7 @@ $EM_CONF[$_EXTKEY] = [
 	'version' => '1.0.2',
 	'constraints' => [
 		'depends' => [
-			'typo3' => '8.7.*',
+			'typo3' => '8.7.*-',
 		],
 		'conflicts' => [],
 		'suggests' => [],
