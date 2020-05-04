@@ -1,4 +1,4 @@
-# TYPO3 Extension rte_ckeditor_dl
+# TYPO3 Extension rte\_ckeditor\_dl
 
 A simple wrapper extension to integrate Reinmar's [ckeditor-plugin-descriptionlist](https://github.com/Reinmar/ckeditor-plugin-descriptionlist) into TYPO3's default editor ckeditor.
 
@@ -15,7 +15,7 @@ Simply load the RTE configuration `default+dl` provided by this extension via Pa
 
 Alternatively to enabling the `default+dl` configuration you can create your own RTE configuration and simply import the yaml file as described below.
 
-#### EXT:custom/ext_localconf.php
+#### EXT:custom/ext\_localconf.php
 ```php
 $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['custom'] = 'EXT:custom/Configuration/RTE/Default.yaml';
 ```
@@ -48,7 +48,7 @@ Weird `<p>` tags show up in markup like this here?
 </dl>
 ```
 
-Tweak TYPO3's pareFunc_RTE a little to get rid of that:
+Tweak TYPO3's pareFunc\_RTE a little to get rid of that:
 
 ```
 lib.parseFunc_RTE.externalBlocks.dl.callRecursive >

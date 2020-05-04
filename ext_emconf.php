@@ -1,7 +1,7 @@
 <?php
 $EM_CONF[$_EXTKEY] = [
 	'title' => 'CKEditor Rich Text Editor: Definition lists',
-	'description' => '',
+	'description' => 'A simple wrapper extension to integrate Reinmar\'s ckeditor-plugin-descriptionlist into TYPO3\'s default editor ckeditor.',
 	'category' => 'system',
 	'state' => 'stable',
 	'uploadfolder' => 0,
