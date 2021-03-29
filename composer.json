@@ -3,9 +3,14 @@
 	"type": "typo3-cms-extension",
 	"description": "TYPO3 CKEditor Rich Text Editor: Definition lists",
 	"homepage": "https://github.com/kitzberger/rte_ckeditor_dl",
-	"license": ["GPL-2.0+"],
+	"license": ["GPL-2.0-or-later"],
 	"keywords": ["TYPO3 CMS"],
 	"require": {
-		"typo3/cms-core": ">=8.7.0"
+		"typo3/cms-core": "^8.7 || ^9.5 || ^10.4"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "rte_ckeditor_dl"
+		}
 	}
 }
