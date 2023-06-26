@@ -1,4 +1,4 @@
 editor:
   externalPlugins:
     descriptionlist:
-      resource: "EXT:rte_ckeditor_dl/Resources/Public/reinmar/ckeditor-plugin-descriptionlist/plugin.js"
+      resource: "EXT:rte_ckeditor_dl/Resources/Public/vendor/reinmar/ckeditor-plugin-descriptionlist/plugin.js"
