@@ -1,4 +1,7 @@
 editor:
-  externalPlugins:
-    descriptionlist:
-      resource: "EXT:rte_ckeditor_dl/Resources/Public/reinmar/ckeditor-plugin-descriptionlist/plugin.js"
+  config:
+    importModules:
+      - { module: '@kitzberger/rte-ckeditor/definitionlist', exports: [ 'DefinitionList' ] }
+    toolbar:
+      items:
+        - definitionList
