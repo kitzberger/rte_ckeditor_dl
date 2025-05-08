@@ -1,6 +1,6 @@
 # TYPO3 Extension rte\_ckeditor\_dl
 
-A simple wrapper extension to integrate Reinmar's [ckeditor-plugin-descriptionlist](https://github.com/Reinmar/ckeditor-plugin-descriptionlist) into TYPO3's default editor ckeditor.
+A simple wrapper extension to [ckeditor5-definitionlist](https://github.com/kitzberger/ckeditor5-definitionlist) into TYPO3's default editor ckeditor 5.
 
 ## Installation
 
