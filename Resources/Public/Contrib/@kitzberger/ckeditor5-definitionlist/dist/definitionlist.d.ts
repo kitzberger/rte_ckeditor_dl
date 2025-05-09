@@ -1,4 +1,4 @@
-import { default as Plugin } from '@ckeditor/ckeditor5-core/src/plugin';
+import { Plugin } from 'ckeditor5';
 export default class DefinitionList extends Plugin {
     static get pluginName(): "DefinitionList";
     init(): void;
