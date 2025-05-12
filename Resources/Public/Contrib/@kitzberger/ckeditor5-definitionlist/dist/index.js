@@ -4,6 +4,66 @@ import { StyleUtils } from '@ckeditor/ckeditor5-style';
 
 var ckeditor = "<svg width='68' height='64' viewBox='0 0 68 64' xmlns='http://www.w3.org/2000/svg'><g fill='none' fill-rule='evenodd'><path d='M43.71 11.025a11.508 11.508 0 0 0-1.213 5.159c0 6.42 5.244 11.625 11.713 11.625.083 0 .167 0 .25-.002v16.282a5.464 5.464 0 0 1-2.756 4.739L30.986 60.7a5.548 5.548 0 0 1-5.512 0L4.756 48.828A5.464 5.464 0 0 1 2 44.089V20.344c0-1.955 1.05-3.76 2.756-4.738L25.474 3.733a5.548 5.548 0 0 1 5.512 0l12.724 7.292z' fill='#FFF'/><path d='M45.684 8.79a12.604 12.604 0 0 0-1.329 5.65c0 7.032 5.744 12.733 12.829 12.733.091 0 .183-.001.274-.003v17.834a5.987 5.987 0 0 1-3.019 5.19L31.747 63.196a6.076 6.076 0 0 1-6.037 0L3.02 50.193A5.984 5.984 0 0 1 0 45.003V18.997c0-2.14 1.15-4.119 3.019-5.19L25.71.804a6.076 6.076 0 0 1 6.037 0L45.684 8.79zm-29.44 11.89c-.834 0-1.51.671-1.51 1.498v.715c0 .828.676 1.498 1.51 1.498h25.489c.833 0 1.51-.67 1.51-1.498v-.715c0-.827-.677-1.498-1.51-1.498h-25.49.001zm0 9.227c-.834 0-1.51.671-1.51 1.498v.715c0 .828.676 1.498 1.51 1.498h18.479c.833 0 1.509-.67 1.509-1.498v-.715c0-.827-.676-1.498-1.51-1.498H16.244zm0 9.227c-.834 0-1.51.671-1.51 1.498v.715c0 .828.676 1.498 1.51 1.498h25.489c.833 0 1.51-.67 1.51-1.498v-.715c0-.827-.677-1.498-1.51-1.498h-25.49.001zm41.191-14.459c-5.835 0-10.565-4.695-10.565-10.486 0-5.792 4.73-10.487 10.565-10.487C63.27 3.703 68 8.398 68 14.19c0 5.791-4.73 10.486-10.565 10.486v-.001z' fill='#1EBC61' fill-rule='nonzero'/><path d='M60.857 15.995c0-.467-.084-.875-.251-1.225a2.547 2.547 0 0 0-.686-.88 2.888 2.888 0 0 0-1.026-.531 4.418 4.418 0 0 0-1.259-.175c-.134 0-.283.006-.447.018-.15.01-.3.034-.446.07l.075-1.4h3.587v-1.8h-5.462l-.214 5.06c.319-.116.682-.21 1.089-.28.406-.071.77-.107 1.088-.107.218 0 .437.021.655.063.218.041.413.114.585.218s.313.244.422.419c.109.175.163.391.163.65 0 .424-.132.745-.396.961a1.434 1.434 0 0 1-.938.325c-.352 0-.656-.1-.912-.3-.256-.2-.43-.453-.523-.762l-1.925.588c.1.35.258.664.472.943.214.279.47.514.767.706.298.191.63.339.995.443.365.104.749.156 1.151.156.437 0 .86-.064 1.272-.193.41-.13.778-.323 1.1-.581a2.8 2.8 0 0 0 .775-.981c.193-.396.29-.864.29-1.405h-.001z' fill='#FFF' fill-rule='nonzero'/></g></svg>\n";
 
+/**
+ * Copied from @ckeditor/ckeditor5-html-support/src/utils.js
+ * and renamed to avoid potential conflicts with environments
+ * that included said file themselves.
+ */ /**
+* Helper function for the downcast converter. Updates attributes on the given view element.
+*
+* @param writer The view writer.
+* @param oldViewAttributes The previous GHS attribute value.
+* @param newViewAttributes The current GHS attribute value.
+* @param viewElement The view element to update.
+*/ function updateViewAttributesDefinitionListPlugin(writer, oldViewAttributes, newViewAttributes, viewElement) {
+    if (oldViewAttributes) {
+        removeViewAttributesDefinitionListPlugin(writer, oldViewAttributes, viewElement);
+    }
+    if (newViewAttributes) {
+        setViewAttributesDefinitionListPlugin(writer, newViewAttributes, viewElement);
+    }
+}
+/**
+ * Helper function for the downcast converter. Sets attributes on the given view element.
+ *
+ * @param writer The view writer.
+ * @param viewAttributes The GHS attribute value.
+ * @param viewElement The view element to update.
+ */ function setViewAttributesDefinitionListPlugin(writer, viewAttributes, viewElement) {
+    if (viewAttributes.attributes) {
+        for (const [key, value] of Object.entries(viewAttributes.attributes)){
+            writer.setAttribute(key, value, viewElement);
+        }
+    }
+    if (viewAttributes.styles) {
+        writer.setStyle(viewAttributes.styles, viewElement);
+    }
+    if (viewAttributes.classes) {
+        writer.addClass(viewAttributes.classes, viewElement);
+    }
+}
+/**
+ * Helper function for the downcast converter. Removes attributes on the given view element.
+ *
+ * @param writer The view writer.
+ * @param viewAttributes The GHS attribute value.
+ * @param viewElement The view element to update.
+ */ function removeViewAttributesDefinitionListPlugin(writer, viewAttributes, viewElement) {
+    if (viewAttributes.attributes) {
+        for (const [key] of Object.entries(viewAttributes.attributes)){
+            writer.removeAttribute(key, viewElement);
+        }
+    }
+    if (viewAttributes.styles) {
+        for (const style of Object.keys(viewAttributes.styles)){
+            writer.removeStyle(style, viewElement);
+        }
+    }
+    if (viewAttributes.classes) {
+        writer.removeClass(viewAttributes.classes, viewElement);
+    }
+}
+
 var definitionListIcon = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100.22509 100.22509\"><g transform=\"translate(-25.036325,-22.233511)\"><rect width=\"54.620625\" height=\"10.888565\" x=\"33.952618\" y=\"39.922672\" ry=\"5.4442825\"/><rect width=\"54.620625\" height=\"10.888565\" x=\"64.154762\" y=\"57.341919\" ry=\"5.4442825\"/><rect width=\"54.620625\" height=\"10.888565\" x=\"34.054344\" y=\"75.9683\" ry=\"5.4442825\"/><rect width=\"54.620625\" height=\"10.888565\" x=\"64.256485\" y=\"93.387543\" ry=\"5.4442825\"/></g></svg>\n";
 
 class DefinitionList extends Plugin {
@@ -34,6 +94,38 @@ class DefinitionList extends Plugin {
             });
             return view;
         });
+        if (this.editor.plugins.has('StyleUtils')) {
+            const _styleUtils = editor.plugins.get(StyleUtils);
+            this.listenTo(_styleUtils, 'isStyleEnabledForBlock', (evt, [definition, block])=>{
+                // console.log('isStyleEnabledForBlock(' + definition.element + ')');
+                if (block.is('element', 'definitionList') && definition.element === 'dl' || block.is('element', 'definitionTerm') && definition.element === 'dt' || block.is('element', 'definitionDescription') && definition.element === 'dd') {
+                    evt.return = true;
+                    evt.stop();
+                }
+            }, {
+                priority: 'high'
+            });
+            this.listenTo(_styleUtils, 'isStyleActiveForBlock', (evt, [definition, block])=>{
+                // console.log('isStyleActiveForBlock(' + definition.element + ')');
+                if ((block.is('element', 'definitionList') && definition.element === 'dl' || block.is('element', 'definitionTerm') && definition.element === 'dt' || block.is('element', 'definitionDescription') && definition.element === 'dd') && block.getAttribute('class')?.split(' ').includes(definition.classes[0])) {
+                    evt.return = true;
+                    evt.stop();
+                }
+            }, {
+                priority: 'high'
+            });
+            this.listenTo(_styleUtils, 'getAffectedBlocks', (evt, [definition, block])=>{
+                // console.log('getAffectedBlocks(' + definition.element + ')');
+                if (block.is('element', 'definitionList') && definition.element === 'dl' || block.is('element', 'definitionTerm') && definition.element === 'dt' || block.is('element', 'definitionDescription') && definition.element === 'dd') {
+                    evt.return = [
+                        block
+                    ];
+                    evt.stop();
+                }
+            }, {
+                priority: 'high'
+            });
+        }
     }
     afterInit() {
         const editor = this.editor;
@@ -105,18 +197,20 @@ class DefinitionList extends Plugin {
                 }
             }
             // ⬇ Handle Enter or ↓ at end of last <dd>
-            if ((data.domEvent.key === 'Enter' || data.domEvent.key === 'ArrowDown') && parent?.is('element', 'definitionDescription')) {
-                const dl = parent.findAncestor('definitionList');
-                const isLastChild = dl?.getChild(dl.childCount - 1) === parent;
-                const isAtEnd = position?.isAtEnd;
-                if (dl && isLastChild && isAtEnd) {
-                    data.preventDefault();
-                    evt.stop();
-                    model.change((writer)=>{
-                        const paragraph = writer.createElement('paragraph');
-                        writer.insert(paragraph, model.createPositionAfter(dl));
-                        writer.setSelection(paragraph, 'in');
-                    });
+            if (data.domEvent.key === 'Enter' && data.domEvent.shiftKey === false || data.domEvent.key === 'ArrowDown') {
+                if (parent?.is('element', 'definitionDescription')) {
+                    const dl = parent.findAncestor('definitionList');
+                    const isLastChild = dl?.getChild(dl.childCount - 1) === parent;
+                    const isAtEnd = position?.isAtEnd;
+                    if (dl && isLastChild && isAtEnd) {
+                        data.preventDefault();
+                        evt.stop();
+                        model.change((writer)=>{
+                            const paragraph = writer.createElement('paragraph');
+                            writer.insert(paragraph, model.createPositionAfter(dl));
+                            writer.setSelection(paragraph, 'in');
+                        });
+                    }
                 }
             }
             // ⬆ Handle ↑ at start of first <dt>
@@ -141,17 +235,29 @@ class DefinitionList extends Plugin {
         schema.register('definitionList', {
             allowWhere: '$block',
             allowContentOf: '$block',
-            isBlock: true
+            isBlock: true,
+            isObject: true,
+            allowAttributes: [
+                'htmlDlAttributes'
+            ]
         });
         schema.register('definitionTerm', {
             allowIn: 'definitionList',
             allowContentOf: '$block',
-            isBlock: true
+            isBlock: true,
+            isObject: true,
+            allowAttributes: [
+                'htmlDtAttributes'
+            ]
         });
         schema.register('definitionDescription', {
             allowIn: 'definitionList',
             allowContentOf: '$block',
-            isBlock: true
+            isBlock: true,
+            isObject: true,
+            allowAttributes: [
+                'htmlDdAttributes'
+            ]
         });
     }
     defineConverters() {
@@ -182,15 +288,34 @@ class DefinitionList extends Plugin {
         });
         conversion.for('editingDowncast').elementToElement({
             model: 'definitionList',
-            view: (modelElement, { writer })=>writer.createContainerElement('dl')
+            view: 'dl'
         });
         conversion.for('editingDowncast').elementToElement({
             model: 'definitionTerm',
-            view: (modelElement, { writer })=>writer.createEditableElement('dt')
+            view: 'dt'
         });
         conversion.for('editingDowncast').elementToElement({
             model: 'definitionDescription',
-            view: (modelElement, { writer })=>writer.createEditableElement('dd')
+            view: 'dd'
+        });
+        conversion.for('downcast').add((dispatcher)=>{
+            const eventNames = [
+                'attribute:htmlDlAttributes',
+                'attribute:htmlDtAttributes',
+                'attribute:htmlDdAttributes'
+            ];
+            eventNames.forEach((eventName)=>{
+                dispatcher.on(eventName, (evt, data, conversionApi)=>{
+                    // Tell the conversion API we're handling this attribute conversion
+                    // so nothing else tries to do something with it.
+                    if (!conversionApi.consumable.consume(data.item, evt.name)) {
+                        return;
+                    }
+                    const { attributeOldValue, attributeNewValue } = data;
+                    const viewCodeElement = conversionApi.mapper.toViewElement(data.item);
+                    updateViewAttributesDefinitionListPlugin(conversionApi.writer, attributeOldValue, attributeNewValue, viewCodeElement);
+                });
+            });
         });
     }
 }
