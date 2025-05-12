@@ -11,5 +11,5 @@ cp -a "$SOURCE" "$TARGET"
 sed -i '/^import { Plugin, ButtonView, StyleUtils, Command } from '\''ckeditor5'\'';$/{
     s/.*/import { Plugin, Command } from '\''@ckeditor\/ckeditor5-core'\'';\
 import { ButtonView } from '\''@ckeditor\/ckeditor5-ui'\'';\
-import { StyleUtils } from '\''@ckeditor5\/ckeditor-style'\'';/
+import { StyleUtils } from '\''@ckeditor\/ckeditor5-style'\'';/
 }' "$TARGET/dist/index.js"
