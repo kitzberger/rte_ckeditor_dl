@@ -8,7 +8,8 @@ rm -rf "$TARGET"
 cp -a "$SOURCE" "$TARGET"
 
 # Fix broken path
-sed -i '/^import { Plugin, ButtonView, Command } from '\''ckeditor5'\'';$/{
+sed -i '/^import { Plugin, ButtonView, StyleUtils, Command } from '\''ckeditor5'\'';$/{
     s/.*/import { Plugin, Command } from '\''@ckeditor\/ckeditor5-core'\'';\
-import { ButtonView } from '\''@ckeditor\/ckeditor5-ui'\'';/
+import { ButtonView } from '\''@ckeditor\/ckeditor5-ui'\'';\
+import { StyleUtils } from '\''@ckeditor5\/ckeditor-style'\'';/
 }' "$TARGET/dist/index.js"
