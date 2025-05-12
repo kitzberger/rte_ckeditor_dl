@@ -2,6 +2,3 @@ editor:
   config:
     importModules:
       - { module: '@kitzberger/rte-ckeditor/definitionlist', exports: [ 'DefinitionList' ] }
-    toolbar:
-      items:
-        - definitionList
