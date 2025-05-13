@@ -196,24 +196,75 @@ class DefinitionList extends Plugin {
                     });
                 }
             }
-            // ⬇ Handle Enter or ↓ at end of last <dd>
-            if (data.domEvent.key === 'Enter' && data.domEvent.shiftKey === false || data.domEvent.key === 'ArrowDown') {
-                if (parent?.is('element', 'definitionDescription')) {
+            // Handle Enter at the end of <dd> or <dt>
+            if (data.domEvent.key === 'Enter' && data.domEvent.shiftKey === false) {
+                if (parent?.is('element', 'definitionDescription') || parent?.is('element', 'definitionTerm')) {
                     const dl = parent.findAncestor('definitionList');
-                    const isLastChild = dl?.getChild(dl.childCount - 1) === parent;
                     const isAtEnd = position?.isAtEnd;
-                    if (dl && isLastChild && isAtEnd) {
+                    if (dl && isAtEnd) {
+                        data.preventDefault();
+                        evt.stop();
+                        if (parent.isEmpty) {
+                            // console.log('Create a new <p>!');
+                            model.change((writer)=>{
+                                const paragraph = writer.createElement('paragraph');
+                                writer.insert(paragraph, model.createPositionAfter(dl));
+                                writer.setSelection(paragraph, 'in');
+                                writer.remove(parent);
+                            });
+                        } else {
+                            if (parent?.is('element', 'definitionDescription')) {
+                                // console.log('Create a new <dt>!');
+                                model.change((writer)=>{
+                                    const dt = writer.createElement('definitionTerm');
+                                    writer.insert(dt, model.createPositionAfter(parent));
+                                    writer.setSelection(dt, 'in');
+                                });
+                            } else {
+                                // console.log('Create a new <dd>!');
+                                model.change((writer)=>{
+                                    const dd = writer.createElement('definitionDescription');
+                                    writer.insert(dd, model.createPositionAfter(parent));
+                                    writer.setSelection(dd, 'in');
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            // Handle Delete/Backspace at an empty <dd> or <dt>
+            if (data.domEvent.key === 'Delete' || data.domEvent.key === 'Backspace') {
+                if (parent?.is('element', 'definitionDescription') || parent?.is('element', 'definitionTerm')) {
+                    if (parent.isEmpty) {
                         data.preventDefault();
                         evt.stop();
                         model.change((writer)=>{
-                            const paragraph = writer.createElement('paragraph');
-                            writer.insert(paragraph, model.createPositionAfter(dl));
-                            writer.setSelection(paragraph, 'in');
+                            const previous = parent.previousSibling;
+                            if (previous) {
+                                const position = writer.createPositionAt(previous, 'end');
+                                writer.setSelection(position);
+                            }
+                            writer.remove(parent);
                         });
                     }
                 }
             }
-            // ⬆ Handle ↑ at start of first <dt>
+            // Handle Arrow Down at the end of last <dd>
+            if (data.domEvent.key === 'ArrowDown' && parent?.is('element', 'definitionDescription')) {
+                const dl = parent.findAncestor('definitionList');
+                const isLastChild = dl?.getChild(dl.childCount - 1) === parent;
+                const isAtEnd = position?.isAtEnd;
+                if (dl && isLastChild && isAtEnd) {
+                    data.preventDefault();
+                    evt.stop();
+                    model.change((writer)=>{
+                        const paragraph = writer.createElement('paragraph');
+                        writer.insert(paragraph, model.createPositionAfter(dl));
+                        writer.setSelection(paragraph, 'in');
+                    });
+                }
+            }
+            // Handle Arrow Up at the start of first <dt>
             if (data.domEvent.key === 'ArrowUp' && parent?.is('element', 'definitionTerm')) {
                 const dl = parent.findAncestor('definitionList');
                 const isFirstChild = dl?.getChild(0) === parent;
@@ -336,7 +387,20 @@ class InsertDefinitionListCommand extends Command {
             const dl = writer.createElement('definitionList');
             const dt = writer.createElement('definitionTerm');
             const dd = writer.createElement('definitionDescription');
-            writer.insertText('Term', dt);
+            let selectedText = '';
+            for (const range of selection.getRanges()){
+                for (const item of range.getItems()){
+                    if (item.is('$textProxy')) {
+                        selectedText += item.data;
+                    }
+                }
+            }
+            if (selectedText) {
+                writer.insertText(selectedText, dt);
+                model.deleteContent(selection);
+            } else {
+                writer.insertText('Term', dt);
+            }
             writer.insertText('Definition', dd);
             writer.append(dt, dl);
             writer.append(dd, dl);
