@@ -1,0 +1,14 @@
+{
+  "name": "rte_ckeditor_dl",
+  "version": "1.0.0",
+  "description": "A simple wrapper extension to integrate Reinmar's [ckeditor-plugin-descriptionlist](https://github.com/Reinmar/ckeditor-plugin-descriptionlist) into TYPO3's default editor ckeditor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@kitzberger/ckeditor5-definitionlist": "^1.0.2"
+  }
+}

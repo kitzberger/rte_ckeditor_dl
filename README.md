@@ -1,6 +1,6 @@
 # TYPO3 Extension rte\_ckeditor\_dl
 
-A simple wrapper extension to integrate Reinmar's [ckeditor-plugin-descriptionlist](https://github.com/Reinmar/ckeditor-plugin-descriptionlist) into TYPO3's default editor ckeditor.
+A simple wrapper extension to [ckeditor5-definitionlist](https://github.com/kitzberger/ckeditor5-definitionlist) into TYPO3's default editor ckeditor 5.
 
 ## Installation
 
@@ -16,11 +16,13 @@ Simply load the RTE configuration `default+dl` provided by this extension via Pa
 Alternatively to enabling the `default+dl` configuration you can create your own RTE configuration and simply import the yaml file as described below.
 
 #### EXT:custom/ext\_localconf.php
+
 ```php
 $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['custom'] = 'EXT:custom/Configuration/RTE/Default.yaml';
 ```
 
 #### EXT:custom/Configuration/RTE/Default.yaml
+
 ```yaml
 # Load default processing options + the dl plugin
 imports:
@@ -28,6 +30,20 @@ imports:
   - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Base.yaml" }
   - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Plugins.yaml" }
   - { resource: "EXT:rte_ckeditor_dl/Configuration/RTE/Plugin.yaml" }
+```
+
+#### Add insert button
+
+To add the 'insert definition list' button to the editors toolbar:
+
+```yaml
+editor:
+  config:
+    toolbar:
+      items:
+        ...
+        - definitionList
+        ...
 ```
 
 ## Trouble shooting

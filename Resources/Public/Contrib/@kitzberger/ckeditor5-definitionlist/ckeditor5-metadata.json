@@ -1,0 +1,17 @@
+{
+	"plugins": [
+		{
+			"name": "Definition list",
+			"className": "DefinitionList",
+			"description": "Adds text to the editor.",
+			"path": "src/definitionlist.ts",
+			"uiComponents": [
+				{
+					"name": "definitionList",
+					"type": "Button",
+					"iconPath": "theme/icons/ckeditor.svg"
+				}
+			]
+		}
+	]
+}
