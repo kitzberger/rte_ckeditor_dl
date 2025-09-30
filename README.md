@@ -46,6 +46,21 @@ editor:
         ...
 ```
 
+## Usage
+
+By clicking that 'insert definition list' button a new `<dl>` is being inserted into the RTE. This `<dl>` contains a single pair of dummy `<dt>` and `</dd>` tags.
+
+Keyboard bindings:
+
+* Transform a `<dt>` into a `<dd>` and vice versa by pressing "tab" resp. "shift+tab".
+* Pressing "enter" at the end of a `<dt>` creates a new `<dd>`.
+* Pressing "enter" at the end of a `<dd>` creates a new `<dt>`.
+* Pressing "del" or "backspace" on an empty `<dt>`/`<dd>` removes it.
+* Pressing "arrow down" at the end of the last `<dd>` inserts a new `<p>` after the `<dl>`
+* Pressing "arrow up" at the beginning of the first `<dt>` inserts a new `<p>` before the `<dt>`
+
+When having the indent/outdent buttons present in the RTE toolbar they can be used as well for transforming the `<dt>` and `<dd>` tags.
+
 ## Trouble shooting
 
 Weird `<p>` tags show up in markup like this here?
