@@ -1,6 +1,11 @@
-# Load default processing options + the dl plugin
+# Load default config + the dl plugin
 imports:
-  - { resource: "EXT:rte_ckeditor/Configuration/RTE/Processing.yaml" }
-  - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Base.yaml" }
-  - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Plugins.yaml" }
+  - { resource: "EXT:rte_ckeditor/Configuration/RTE/Default.yaml" }
   - { resource: "EXT:rte_ckeditor_dl/Configuration/RTE/Plugin.yaml" }
+
+# Add dl button to toolbar
+editor:
+  config:
+    toolbar:
+      items:
+        - definitionList
